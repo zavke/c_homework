@@ -1,0 +1,146 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+int main(void)
+{
+
+        char getcrod[] = "0000000000000";
+        int i,j,k,flag =0,numflag =0;
+        printf("請輸入電力座標—");
+        scanf("%s",getcrod);
+        printf("%d\n",strlen(getcrod));
+        int len = strlen(getcrod);
+        while(1)
+        {
+
+                if(strlen(getcrod)<=8||strlen(getcrod)>11||strlen(getcrod)==10)
+                {
+                        printf("輸入資料不正確1\n");
+                        printf("請重新輸入電力座標—");
+                        scanf("%s",getcrod);
+
+                }
+                else{
+                        for(i=65;i<=90;i++){
+                        if(getcrod[1]==i||getcrod[2]==i||getcrod[3]==i||getcrod[4]==i||getcrod[7]==i||getcrod[8]==i||getcrod[9]==i||getcrod[10]==i)
+                        {       flag=10;
+                        }
+                        if(getcrod[0]==i)
+                        {       flag++;
+                        }
+                        if(i<=72){
+                         if(getcrod[5]==i)
+                        {       flag++;
+                        }}
+                        if(i<=69){
+                        if(getcrod[6]==i)
+                        {       flag++;
+                        }}
+                        }
+                        for(j=97;j<=122;j++)
+                        {
+                         if(getcrod[1]==j||getcrod[2]==j||getcrod[3]==j||getcrod[4]==j||getcrod[7]==j||getcrod[8]==j||getcrod[9]==j||getcrod[10]==j)
+                        {       flag=10;
+                        }
+
+                         if(getcrod[0]==j)
+                        {       flag++;
+                        }
+                        if(j<=104){
+                         if(getcrod[5]==j)
+                        {       flag++;
+                        }}
+                        if(j<=101){
+                         if(getcrod[6]==j)
+                        {       flag++;
+                        }}
+                        }
+                        for(k='0';k<='9';k++){
+                          if(getcrod[1]==k)
+                        {       numflag++;
+                        }
+                         if(getcrod[2]==k)
+                        {       numflag++;
+                        }
+                         if(getcrod[3]==k)
+                        {       numflag++;
+                        }
+                         if(getcrod[4]==k)
+                        {       numflag++;
+                        }
+
+                         if(getcrod[7]==k)
+                        {       numflag++;
+                        }
+
+                         if(getcrod[8]==k)
+                        {       numflag++;
+                        }
+
+                         if(getcrod[9]==k)
+                        {       numflag++;
+                        }
+                         if(getcrod[10]==k)
+                        {       numflag++;
+                        }
+                        }
+
+                /*      for(i=0;i<=len;i++){
+                                if(i==0||i==5||i==6){
+                                        if(i==0){
+                                                if(!((getcrod[i] >= 'a' && getcrod[i] <= 'z') || (getcrod[i] >= 'A' && getcrod[i] <= 'Z'))){
+                                                flag=1;
+                                                 printf("0ed\n");
+                                                }
+                                        }
+                                        if(i==5){
+                                                if(!((getcrod[i] >= 'a' && getcrod[i] <= 'h') || (getcrod[i] >= 'A' && getcrod[i] <= 'H'))){
+                                                flag=1;
+                                                printf("5ed\n");
+                                                }
+                                        }
+                                        if(i==6){
+                                                if(!((getcrod[i] >= 'a' && getcrod[i] <= 'e') || (getcrod[i] >= 'A' && getcrod[i] <= 'E'))){
+                                                flag=1;
+                                                printf("6ed\n");
+                                                }
+                                        }
+                                }
+                                else if (!((getcrod[i] >'0' && getcrod[i] <'9'))){
+                                        flag=1;
+                                        numflag++;
+                                        }
+                                else{
+                                        if(!flag) flag = 0;
+                                }
+
+
+                        }*/
+                         printf("numflag=%d\n",numflag);
+                         printf("flag=%d\n",flag);
+
+                        if(flag==3&&numflag>=6){
+
+                        printf("correct\n");
+                        break;
+                        }
+                        else{
+                        flag=0;
+                        numflag=0;
+                        printf("failed\n");
+                        printf("輸入資料不正確2\n");
+                        printf("請重新輸入電力座標—");
+                        scanf("%s",getcrod);
+
+
+                        }
+
+                }
+
+        }}
+        //if(getcrod[0]=='z'||getcrod[0]=='Z'||getcrod[0]=='s'||getcrod[0]=='S'){
+        //      printf("目前不支援轉換金馬地區電力座標");
+        //}
+
+
