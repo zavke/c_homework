@@ -1,0 +1,60 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+int check(int ,int ,int);
+void heron(int,int,int);
+double sqrt(double x);
+int main(void)
+
+{
+        int a,b,c,flag=0;
+                end:
+                flag=0;
+                printf("請輸入三個整數邊長abc(以空格做區分)");
+                scanf("%d%d%d",&a,&b,&c);
+                flag = check(a,b,c);
+                if(flag==1){
+                        goto end;
+                }
+                else{
+                        heron(a,b,c);
+                }
+
+}
+
+
+
+int check(int d,int e,int f){
+        int u = 0, t= 0,w=0;
+        if(!(d+e>f)){
+                t++;
+        }
+        if(!(e+f>d)){
+                t++;
+        }
+        if(!(d+f>e)){
+                t++;
+        }
+        if(d==e&&e==f){
+                w=1;
+        }
+        if(w==0&&t>=1){
+                printf("兩邊必須大於第三邊，請重新輸入\n");
+                return 1;
+        }
+        else {
+                return 0;
+        }
+}
+
+void heron(int x ,int y, int z){
+        float p,ans,ans1;
+
+        p = ((float)x+(float)y+(float)z)/2;
+
+        ans = p*(p-(float)x)*(p-(float)y)*(p-(float)z);
+
+        ans1 = sqrt(ans);
+
+        printf("輸入的是%d,%d,%d,面積是%0.3f\n",x,y,z,ans1);
+}

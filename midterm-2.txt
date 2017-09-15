@@ -1,0 +1,134 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+double round(double x);
+int main(void){
+        int cartype, usertype ,mile, num,num1;
+        float price,discount,longdiscount,total, nine=total*0.9;
+        car:
+        printf("選擇車種 1)小型車 2)計程車 3)大型車 4)聯結車 : ");
+        scanf("%d",&cartype);
+        if(cartype>=5||cartype<=0)
+        {
+                printf("輸入錯誤，請重新選擇車種\n");
+                goto car;
+        }
+        user:
+        printf("繳費方式: 1)eTag用戶 2)預約用戶 3)繳費用戶 : ");
+        scanf("%d",&usertype);
+        if(usertype>=4||usertype<=0)
+        {
+                printf("輸入錯誤，請重新選擇繳費方式\n");
+                goto user;
+        }
+        printf("行駛里程數 : ");
+        scanf("%d",&mile);
+
+
+        if (cartype==1){
+                price = (float)mile *1.20;
+                printf("基本費用(%dKM *1.20) = %0.2f\n",mile,price);
+                if(mile<20)
+                {
+                discount = (float)mile*1.2;
+                num = mile;
+                }
+                if(mile>20){
+                discount = 20*1.2;
+                num = 20;
+                }
+                printf("每月優惠(%d*1.20) = %0.2f\n",num,discount);
+                if(mile>200){
+                longdiscount = ((float)mile-200)*0.3;
+                num1 = mile-200;
+                }
+                else{
+                longdiscount = 0.00;
+                num1 =mile;
+                }
+                printf("長途折扣(%dKM*0.3) = %0.2f\n",num1,longdiscount);
+                total = price-(discount+longdiscount);
+                printf("總通行費:%0.2f - (%0.2f + %0.2f)= %0.2f\n", price,discount ,longdiscount,total);
+                printf("四捨五入:%0.0f\n",round(total));
+                nine=total*0.9;
+        }
+        if (cartype==2){
+                price = (float)mile *1.20;
+                printf("基本費用(%dKM *1.20) = %0.2f\n",mile,price);
+                num=0;
+ printf("基本費用(%dKM *1.20) = %0.2f\n",mile,price);
+                num=0;
+                printf("每月優惠(%d*1.20) = %0.2f\n",num,discount);
+                num1=0;
+                printf("長途折扣(%dKM*0.3) = %0.2f\n",num1,longdiscount);
+                total = price-(discount+longdiscount);
+                printf("總通行費:%0.2f - (%0.2f + %0.2f)= %0.2f\n", price,discount ,longdiscount,total);
+                printf("四捨五入:%0.0f\n",floor(total));
+                printf("計程式用戶無九折:%0.0f\n",round(total));
+        }
+        if (cartype==3){
+                price = (float)mile *1.50;
+                printf("基本費用(%dKM *1.50) = %0.2f\n",mile,price);
+                if(mile<20)
+                {
+                discount = (float)mile*1.5;
+                num = mile;
+                }
+                if(mile>20){
+                discount = 20*1.5;
+                num = 20;
+                }
+                printf("每月優惠(%d*1.50) = %0.2f\n",num,discount);
+                if(mile>200){
+                longdiscount = ((float)mile-200)*0.38;
+                num1 = mile-200;
+                }
+                else{
+                longdiscount = 0.00;
+                num1 =mile;
+                }
+                printf("長途折扣(%dKM*0.38) = %0.2f\n",num1,longdiscount);
+                total = price-(discount+longdiscount);
+                printf("總通行費:%0.2f - (%0.2f + %0.2f)= %0.2f\n", price,discount ,longdiscount,total);
+                printf("四捨五入:%0.0f\n",round(total));
+                nine=total*0.9;
+        }
+        if (cartype==4){
+                price = (float)mile *1.80;
+                printf("基本費用(%dKM *1.80) = %0.2f\n",mile,price);
+                if(mile<20)
+                {
+                discount = (float)mile*1.8;
+                num = mile;
+                }
+                if(mile>20){
+                discount = 20*1.8;
+                num = 20;
+                }
+                printf("每月優惠(%d*1.80) = %0.2f\n",num,discount);
+                if(mile>200){
+                longdiscount = ((float)mile-200)*0.45;
+                num1 = mile-200;
+                }
+                else{
+                longdiscount = 0.00;
+                num1 =mile;
+                }
+}
+                printf("長途折扣(%dKM*0.45) = %0.2f\n",num1,longdiscount);
+                total = price-(discount+longdiscount);
+                printf("總通行費:%0.2f - (%0.2f + %0.2f)= %0.2f\n", price,discount ,longdiscount,total);
+                printf("四捨五入:%0.0f\n",round(total));
+       nine=total*0.9;
+        }
+        if(cartype!=2){
+        if(usertype==1){
+                printf("eTag用戶九折費用:%0.0f\n",nine);}
+        if(usertype==2){
+                printf("非eTag用戶無九折:%0.0f\n",round(total));}
+        if(usertype==3){
+                printf("非eTag用戶無九折:%0.0f\n",round(total));}
+        }
+
+
+}
