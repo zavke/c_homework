@@ -1,0 +1,35 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+int n;
+int fac(int);
+double fun(int);
+int main(void)
+{
+start:
+  printf("請輸入一介於1~18的整數:");
+  scanf("%d",&n);
+  if ((n<1)||(n>18))
+  {printf("整數範圍錯誤，請重新輸入\n");
+  goto start;}
+  else
+  {printf("計算結果為:%52.50f\n",fun(n));
+  return 0;}
+}
+
+double fun(int n)
+{
+  int k;
+  double sum=0.0;
+  for(k=1;k<=n;k++)
+    sum+=1.0/fac(k);
+  return sum;
+}
+
+  int fac(int a)
+{
+  int i,total=1;
+  for(i=1;i<=a;i++)
+    total*=i;
+  return total;
+}

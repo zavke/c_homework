@@ -1,0 +1,249 @@
+#include <stdio.h>
+#include <string.h>
+#define MAXDIGITS       1000
+#define PLUS            1
+#define MINUS           -1
+#define Max 70
+
+//ま计笲衡猭
+
+
+typedef struct {
+        char digits[MAXDIGITS];
+        int signbit;
+        int lastdigit;
+} bignum;
+
+
+print_bignum(bignum *n)         //计
+{
+        int i;
+
+        if (n->signbit == MINUS) printf("- ");
+        for (i=n->lastdigit; i>=0; i--)
+                printf("%c",'0'+ n->digits[i]);
+
+        printf("\n");
+}
+
+int_to_bignum(int s, bignum *n)   //盢计锣计
+{
+        int i;
+        int t;
+
+        if (s >= 0) n->signbit = PLUS;
+        else n->signbit = MINUS;
+
+        for (i=0; i<MAXDIGITS; i++) n->digits[i] = (char) 0;
+
+        n->lastdigit = -1;
+
+
+    t = (s>=0)?s:s * (-1);
+
+   while (t > 0) {
+                n->lastdigit ++;
+                n->digits[ n->lastdigit ] = (t % 10);
+                t = t / 10;
+        }
+
+        if (s == 0) n->lastdigit = 0;
+}
+
+initialize_bignum(bignum *n)     //计﹍
+{
+        int_to_bignum(0,n);
+}
+
+
+int max(int a, int b)
+{
+        if (a > b) return(a); else return(b);
+}
+
+
+
+add_bignum(bignum *a, bignum *b, bignum *c)
+{
+        int carry;
+        int i;
+
+        initialize_bignum(c);
+
+        if (a->signbit == b->signbit) c->signbit = a->signbit;
+        else {
+                if (a->signbit == MINUS) {
+                        a->signbit = PLUS;
+                        subtract_bignum(b,a,c);
+                        a->signbit = MINUS;
+                } else {
+                        b->signbit = PLUS;
+                        subtract_bignum(a,b,c);
+                        b->signbit = MINUS;
+                }
+                return;
+        }
+  c->lastdigit = max(a->lastdigit,b->lastdigit)+1;
+        carry = 0;
+
+        for (i=0; i<=(c->lastdigit); i++) {
+                c->digits[i] = (char) (carry+a->digits[i]+b->digits[i]) % 10;
+                carry = (carry + a->digits[i] + b->digits[i]) / 10;
+        }
+
+        zero_justify(c);
+}
+
+subtract_bignum(bignum *a, bignum *b, bignum *c)
+{
+        int borrow;
+        int v;
+        int i;
+
+        initialize_bignum(c);
+
+        if ((a->signbit == MINUS) || (b->signbit == MINUS)) {
+                b->signbit = -1 * b->signbit;
+                add_bignum(a,b,c);
+                b->signbit = -1 * b->signbit;
+                return;
+        }
+
+        if (compare_bignum(a,b) == PLUS) {
+                subtract_bignum(b,a,c);
+                c->signbit = MINUS;
+                return;
+        }
+
+        c->lastdigit = max(a->lastdigit,b->lastdigit);
+        borrow = 0;
+
+        for (i=0; i<=(c->lastdigit); i++) {
+                v = (a->digits[i] - borrow - b->digits[i]);
+                if (a->digits[i] > 0)
+                        borrow = 0;
+                if (v < 0) {
+                        v = v + 10;
+                        borrow = 1;
+                }
+
+                c->digits[i] = (char) v % 10;
+        }
+   zero_justify(c);
+}
+
+compare_bignum(bignum *a, bignum *b)
+{
+        int i;
+
+        if ((a->signbit == MINUS) && (b->signbit == PLUS)) return(PLUS);
+        if ((a->signbit == PLUS) && (b->signbit == MINUS)) return(MINUS);
+
+        if (b->lastdigit > a->lastdigit) return (PLUS * a->signbit);
+        if (a->lastdigit > b->lastdigit) return (MINUS * a->signbit);
+
+        for (i = a->lastdigit; i>=0; i--) {
+                if (a->digits[i] > b->digits[i]) return(MINUS * a->signbit);
+                if (b->digits[i] > a->digits[i]) return(PLUS * a->signbit);
+        }
+
+        return(0);
+}
+
+zero_justify(bignum *n)
+{
+        while ((n->lastdigit > 0) && (n->digits[ n->lastdigit ] == 0))
+                n->lastdigit --;
+
+        if ((n->lastdigit == 0) && (n->digits[0] == 0))
+                n->signbit = PLUS;
+}
+digit_shift(bignum *n, int d)
+{
+        int i;
+
+        if ((n->lastdigit == 0) && (n->digits[0] == 0)) return;
+
+        for (i=n->lastdigit; i>=0; i--)
+                n->digits[i+d] = n->digits[i];
+
+        for (i=0; i<d; i++) n->digits[i] = 0;
+
+        n->lastdigit = n->lastdigit + d;
+}
+
+main(){
+          char a[Max],
+
+               b[Max];
+
+          int   i;
+
+                bignum ba,    //bignuma
+                       bb,    //bignumb
+                       bt,    //bigtmp
+                       br;    //bigresult
+
+               printf("俱计:");
+               scanf("%s",a);
+
+               for(i=0;i<strlen(a);i++){
+                a[i]-='0';
+               }
+
+
+               int_to_bignum(a[0],&ba);
+
+
+               printf("俱计:");
+               scanf("%s",b);
+
+
+               for(i=0;i<strlen(b);i++){
+                b[i]-='0';
+
+               }
+
+                int_to_bignum(b[0],&bb);
+
+
+                for(i=1;i<strlen(a);i++){
+                    digit_shift(&ba,1);
+
+                    int_to_bignum(a[i],&bt);
+                       add_bignum(&ba,&bt,&br);
+                       ba = br;
+
+                }
+                int_to_bignum(b[0],&bb);
+
+ for(i=1;i<strlen(b);i++){
+                        digit_shift(&bb,1);
+
+                        int_to_bignum(b[i],&bt);
+                        add_bignum(&bb,&bt,&br);
+                        bb = br;
+
+                }
+
+
+
+
+
+                subtract_bignum(&ba,&bb,&br);
+                printf(" ");
+                printf(" ");
+                printf(" ");
+                print_bignum(&ba);
+                printf("\n-) ");
+                print_bignum(&bb);
+                printf("\n");
+                for(i=1;i<Max;i++) printf("-");
+                printf("\n  ");
+                printf(" ");
+                print_bignum(&br);
+                printf("\n");
+
+
+
+}

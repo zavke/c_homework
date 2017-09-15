@@ -1,0 +1,25 @@
+#include<stdio.h>
+#include<stdlib.h>
+int main(void)
+{
+  FILE *fptr;
+  char ch;
+
+  fptr=fopen("/tmp/finalterm105-3.data","r");
+  if (fptr!=NULL)
+  {
+    while((ch=getc(fptr))!=EOF)
+    {
+      printf("%c",ch);
+    }
+    fclose(fptr);
+  }
+  else
+    {printf("Åª¨úÀÉ®×¥¢±Ñ!!\n");}
+
+  int n = 10;
+  printf("(A+B)^%d=A^%d+%dA^%dB+%dA^%dB^%d+%dA^%dB^%d+%dA^%dB^%d+%dA^%dB^%d+%dA^%dB^%d+%dA^%dB^%d+%dA^%dB^%d+%dAB^%d+B^%d\n",n,n,n,n-1,n*(n-1)/2,n-2,n-8,n*(n-1)*(n-2)/(3*2),n-3,n-7,n*(n-1)*(n-2)*(n-3)/(4*3*2),n-4,n-6,n*(n-1)*(n-2)*(n-3)*(n-4)/(5*4*3*2),n-5,n-5,n*(n-1)*(n-2)*(n-3)/(4*3*2),n-6,n-4,n*(n-1)*(n-2)/(3*2),n-7,n-3,n*(n-1)/2,n-8,n-2,n,n-1,n);
+
+
+  return 0;
+}

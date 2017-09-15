@@ -1,0 +1,45 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+int x[10],i,j,k;
+main()
+{
+  x[0]=1;
+
+  for(i=1;i<51;i++)
+  {
+    printf("%d!=",i);
+
+    for(j=0;j<10;j++) // 皚笲衡
+    {
+      x[j]=x[j]*i;
+    }
+    for(j=0;j<10;j++) // 盢犯计皚
+    {
+      if(x[j]>=10000000)
+      {
+        x[j+1]+=x[j]/10000000;
+        x[j]=x[j]%10000000;
+      }
+    }
+   k=0;
+
+   for(j=9;j>=0;j--) // 皚禲癹伴
+   {
+     if((x[j]==0)&&(k==0)) // 玡7计计0玥ぃ
+     {
+       continue;
+     }
+     else if (k==0) //Τ獶0玥赣皚计
+     {
+       printf("%d",x[j]);
+       k=1;
+     }
+     else
+
+       printf("%07d",x[j]);
+   }
+   printf("\n");
+  }
+}
+
